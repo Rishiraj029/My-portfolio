@@ -15,7 +15,7 @@ function closeMenu() {
   cancel(); // Close the menu when clicking on a link
 }
 
-// Typewriter effect
+// Typewriter effect with adjusted timing for mobile
 const texts = [
   "DEVELOPER",
   "DATA SCIENTIST",
@@ -23,7 +23,10 @@ const texts = [
   "WEB DESIGNER"
 ];
 
-let speed = 100;
+// Detect if mobile device for typewriter speed adjustment
+const isMobile = window.innerWidth <= 768;
+let speed = isMobile ? 150 : 100; // Slower typing on mobile
+
 const textElements = document.querySelector('.typewriter-text');
 let textIndex = 0;
 let characterIndex = 0;
@@ -49,7 +52,7 @@ function eraseText() {
   }
 }
 
-// Sticky navbar
+// Sticky navbar with responsive adjustments
 window.addEventListener('scroll', function() {
   const navbar = document.getElementById('navbar');
   if (window.scrollY > 50) {
@@ -85,7 +88,7 @@ function animateSkills() {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.3 }); // Lower threshold for mobile
   
   observer.observe(skillsSection);
 }
@@ -114,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Smooth scrolling for anchor links
+// Smooth scrolling for anchor links with mobile adjustments
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
@@ -124,13 +127,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
+      // Adjust offset based on screen size
+      const offset = window.innerWidth <= 768 ? 50 : 70;
+      
       window.scrollTo({
-        top: targetElement.offsetTop - 70, // Offset for navbar
+        top: targetElement.offsetTop - offset,
         behavior: 'smooth'
       });
     }
   });
 });
+
+// Responsive image loading
+function loadResponsiveImages() {
+  if (window.innerWidth <= 768) {
+    // Optional: You could load smaller images for mobile if needed
+    // const profileImages = document.querySelectorAll('.profile-image');
+    // profileImages.forEach(img => {
+    //   const mobileSrc = img.getAttribute('data-mobile-src');
+    //   if (mobileSrc) img.src = mobileSrc;
+    // });
+  }
+}
+
+// Fix AOS animation issues on mobile
+function adjustAOSForMobile() {
+  if (window.innerWidth <= 768) {
+    // Shorter durations on mobile
+    const aosElements = document.querySelectorAll('[data-aos]');
+    aosElements.forEach(el => {
+      el.setAttribute('data-aos-duration', '800');
+      
+      // Remove delays on mobile for better performance
+      if (el.hasAttribute('data-aos-delay') && parseInt(el.getAttribute('data-aos-delay')) > 300) {
+        el.setAttribute('data-aos-delay', '300');
+      }
+    });
+  }
+}
 
 // Initialize
 window.onload = function() {
@@ -140,11 +174,33 @@ window.onload = function() {
   // Animate skills when page loads
   animateSkills();
   
-  // Re-initialize AOS for better control
+  // Handle responsive images
+  loadResponsiveImages();
+  
+  // Adjust AOS for mobile
+  adjustAOSForMobile();
+  
+  // Re-initialize AOS with better mobile settings
   AOS.init({
-    offset: 120,
-    duration: 1000,
+    offset: window.innerWidth <= 768 ? 50 : 120,
+    duration: window.innerWidth <= 768 ? 800 : 1000,
     once: true,
-    mirror: false
+    mirror: false,
+    disable: window.innerWidth <= 480 ? 'phone' : false
   });
 };
+
+// Handle window resize
+window.addEventListener('resize', function() {
+  // Update is-mobile detection
+  const wasMobile = speed > 100;
+  const isMobileNow = window.innerWidth <= 768;
+  
+  if (wasMobile !== isMobileNow) {
+    // Update typewriter speed if device type changed
+    speed = isMobileNow ? 150 : 100;
+    
+    // Refresh AOS
+    AOS.refresh();
+  }
+});
