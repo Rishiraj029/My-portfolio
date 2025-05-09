@@ -675,9 +675,206 @@ section {
   margin-bottom: 15px;
 }
   
-
-
-
-
-
+/* Mobile Responsiveness */
+@media screen and (max-width: 992px) {
+  .main-container {
+    flex-direction: column-reverse;
+    justify-content: center;
+    gap: 30px;
+  }
   
+  .main-container .content {
+    width: 100%;
+    text-align: center;
+    padding: 20px 10px;
+  }
+  
+  .main-container .image {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .content button {
+    width: 80%;
+    margin: 20px auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* Navigation for mobile */
+  .hamburg {
+    display: block;
+  }
+  
+  .nav-container .links {
+    display: none;
+  }
+  
+  /* Home section */
+  #home {
+    padding-top: 80px;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .main-container {
+    padding: 20px 10px;
+  }
+  
+  .content .typewriter {
+    height: 80px;
+  }
+  
+  /* Skills section */
+  .skills-container {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Projects section */
+  .projects-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-card {
+    max-width: 100%;
+  }
+  
+  /* About section */
+  .about-container {
+    flex-direction: column;
+  }
+  
+  .personal-info {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Contact section */
+  .contact-container {
+    flex-direction: column;
+  }
+  
+  .contact-form {
+    width: 100%;
+  }
+  
+  /* Adjust section padding */
+  .section {
+    padding: 80px 15px 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Further adjustments for very small screens */
+  .main-container .image {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .content h1 {
+    font-size: 2rem;
+  }
+  
+  .content .typewriter {
+    font-size: 1.5rem;
+    height: 60px;
+  }
+  
+  .content p {
+    font-size: 1rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+  
+  .about-content h3,
+  .contact-info h3 {
+    font-size: 1.5rem;
+  }
+  
+  /* Fix form elements */
+  .form-group input,
+  .form-group textarea {
+    padding: 12px;
+  }
+  
+  /* Adjust button sizes */
+  .resume-btn,
+  .submit-btn,
+  .view-more-btn {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+}
+
+/* Fix for scroll-top button */
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #b711e0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px rgba(183, 17, 224, 0.5);
+}
+
+.scroll-top.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Fix for contact form on all devices */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background-color: #b711e0;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: inline-block;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: transparent;
+  box-shadow: 0 0 15px #b711e0;
+  border: 2px solid #b711e0;
+}
